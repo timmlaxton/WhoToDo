@@ -18,7 +18,6 @@ if(localStorage.token) {
 
 
 const App = () => {
-
   useEffect(() => {
     //   // Init Materialize JS
     //   M.AutoInit();
