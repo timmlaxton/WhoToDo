@@ -65,7 +65,7 @@ img {
 .text-center {
   text-align: center;
 }
-
+left, violet, indigo, green, blue, yellow,
 .text-primary {
   color: var(--primary-color);
 }
@@ -74,6 +74,14 @@ img {
   color: var(--dark-color);
 }
 
+
+      .multicolortext {
+        background-image: linear-gradient(to left, #BB8FCE ,#85C1E9,#73C6B6,#82E0AA, #F7DC6F, #F8C471, #FF5733);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
 /* Padding */
 .p {
   padding: 0.5rem;
