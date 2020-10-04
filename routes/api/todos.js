@@ -11,7 +11,10 @@ const User = require('../../models/User');
 // @access  Public
 router.post(
   '/', 
-  [auth, [check('message', 'Message os required').not().isEmpty()]],
+  [auth, [
+    check('message', 'Message os required').not().isEmpty(),
+    check('attention', 'Attention level is required').not().isEmpty(),
+  ]],
  async (req, res) => {
    const errors = validationResult(req);
    if(!errors.isEmpty()) {
@@ -23,6 +26,7 @@ router.post(
 
     const newTodo = new Todo ({
       message: req.body.message,
+      attention: req.body.attention,
       name: user.name,
       user: req.user.id
     });

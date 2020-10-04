@@ -36,7 +36,7 @@ const App = () => {
       <section className="container">
         <Alert/>
         <Switch>
-          <Route exact path="/todos" component={Todos}/>
+          <Route exact path="/api/todos" component={Todos}/>
           <Route exact path="/register" component={Register}/>
           <Route exact path="/login" component={Login}/>
         </Switch>
