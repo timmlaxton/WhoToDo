@@ -5,11 +5,19 @@ import {connect} from 'react-redux';
 import TodoItem from './TodoItem';
 import {getTodos} from '../../actions/todo';
 import PreLoader from '../layout/Preloader'
+import AddBtn from '../layout/AddBtn';
+import AddTodoModal from './AddTodoModal';
+import EditTodoModal from './EditTodoModal';
+
+import 'materialize-css/dist/css/materialize.min.css';
+import M from 'materialize-css/dist/js/materialize.min.js';
+import'../../App.css'
 
 const Todos = ({getTodos, todo: {todos, loading}}) => {
   useEffect(() => {
     getTodos();
     // eslint-disable-next-line
+    M.AutoInit();
   }, [getTodos])
 
   if(loading || todos === null){
@@ -19,6 +27,7 @@ const Todos = ({getTodos, todo: {todos, loading}}) => {
   return (
      <Fragment> 
      <SearchBar/>
+     
      <ul className="collection with-header">
       <li className="collection-header">
         <h4 className="center">Todos</h4>
@@ -30,6 +39,9 @@ const Todos = ({getTodos, todo: {todos, loading}}) => {
       )}
      
      </ul>
+     <AddBtn/>
+     <AddTodoModal/>
+     <EditTodoModal/>
      </Fragment>
      
    

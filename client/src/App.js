@@ -10,8 +10,7 @@ import {  Provider  } from 'react-redux';
 import store from './store';
 import {loadUser} from './actions/auth'
 import setAuthToken from './utils/setAuthToken';
-import 'materialize-css/dist/css/materialize.min.css';
-import M from 'materialize-css/dist/js/materialize.min.js';
+
 import './App.css';
 
 if(localStorage.token) {
@@ -23,7 +22,7 @@ if(localStorage.token) {
 const App = () => {
   useEffect(() => {
     //   // Init Materialize JS
-       M.AutoInit();
+      
         store.dispatch(loadUser())
      }, []);
 
