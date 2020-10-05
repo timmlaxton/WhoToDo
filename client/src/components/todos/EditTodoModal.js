@@ -1,23 +1,42 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react';
+import UserSelectOptions from '../users/UserSelectOption'
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 import M from 'materialize-css/dist/js/materialize.min.js';
+import {updateTodo} from '../../actions/todo'
 
-
-const EditTodoModal = () => {
+const EditTodoModal = ({updateTodo, current}) => {
   const [message, setMessage] = useState('');
   const [attention, setAttention] = useState(false)
   const [user, setUser] = useState('');
+
+  useEffect(() => {
+    if(current) {
+      setMessage(current.message)
+      setAttention(current.attention)
+      setUser(current.user)
+    }
+  }, [current])
 
   const onSubmit = () => {
     if(message === '' || user === '') {
       M.toast({html: 'Please enter a todo and user'})
     } else {
-      console.log(message, user, attention);
+      const updTodo = {
+        id: current.id,
+        message,
+        attention,
+        user,
+        date: new Date()
+      };
+
+      updateTodo(updTodo);
+      M.toast({html: `Todo updated by ${user}`})
 
       setMessage('');
       setUser('');
       setAttention(false)
     }
-
   }
 
   return (
@@ -37,9 +56,7 @@ const EditTodoModal = () => {
           <div className="input-field">
             <select name="user" value={user} className="browser-default" onChange={e => setUser(e.target.value )}>
               <option value="" disabled>Select User</option>
-              <option value="John Doe">John Doe</option>
-              <option value="Henry Walloper">Henry Walloper</option>
-              <option value="Martha">Martha </option>
+              <UserSelectOptions/>
             </select>
           </div>
         </div>
@@ -73,4 +90,13 @@ const modalStyle = {
   height: '75%'
 };
 
-export default EditTodoModal
+EditTodoModal.propTypes = {
+  current: PropTypes.object,
+  updateTodo: PropTypes.func.isRequired
+}
+
+const mapStateToProps = state => ({
+  current: state.todo.current
+})
+
+export default connect(mapStateToProps, {updateTodo})(EditTodoModal);

@@ -1,8 +1,12 @@
-import React, {useState} from 'react'
+import React, {useState} from 'react';
+import UserSelectOptions from '../users/UserSelectOption';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
+import {addTodo} from '../../actions/todo'
 import M from 'materialize-css/dist/js/materialize.min.js';
 
 
-const AddTodoModal = () => {
+const AddTodoModal = ({addTodo}) => {
   const [message, setMessage] = useState('');
   const [attention, setAttention] = useState(false)
   const [user, setUser] = useState('');
@@ -11,7 +15,16 @@ const AddTodoModal = () => {
     if(message === '' || user === '') {
       M.toast({html: 'Please enter a todo and user'})
     } else {
-      console.log(message, user, attention);
+      const newTodo = {
+        message,
+        attention,
+        user,
+        date: new Date()
+      }
+
+      addTodo(newTodo);
+
+      M.toast({html: `Todo added by ${user}`})
       
       setMessage('');
       setUser('');
@@ -22,7 +35,7 @@ const AddTodoModal = () => {
   return (
     <div id='add-todo-modal' className="modal" style={modalStyle}>
       <div className="modal-content">
-        <h4>Enter Todo</h4>
+        <h4>Add Todo</h4>
         <div className="row">
           <div className="input-field">
             <input type="text" name='message' value={message} onChange={e => setMessage(e.target.value)}/>
@@ -36,9 +49,7 @@ const AddTodoModal = () => {
           <div className="input-field">
             <select name="user" value={user} className="browser-default" onChange={e => setUser(e.target.value )}>
               <option value="" disabled>Select User</option>
-              <option value="John Doe">John Doe</option>
-              <option value="Henry Walloper">Henry Walloper</option>
-              <option value="Martha">Martha </option>
+             <UserSelectOptions/>
             </select>
           </div>
         </div>
@@ -67,9 +78,14 @@ const AddTodoModal = () => {
   )
 }
 
+AddTodoModal.propTypes = {
+  addToDo: PropTypes.func.isRequired
+}
+
+
 const modalStyle = {
   width: '75%',
   height: '75%'
 };
 
-export default AddTodoModal
+export default connect(null, {addTodo})(AddTodoModal)

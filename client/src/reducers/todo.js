@@ -1,33 +1,77 @@
 import {
   GET_TODOS,
-  TODO_ERROR
+  TODOS_ERROR,
+  ADD_TODO,
+  DELETE_TODO,
+  CLEAR_CURRENT,
+  UPDATE_TODO,
+  SEARCH_TODOS,
+  SET_CURRENT,
+  SET_LOADING
   
 } from '../actions/types'
 
 
 const initialState = {
-  todos: [],
-  todo: null,
-  loading: true,
-  error: {}
+  todos: null,
+  current: null,
+  loading: false,
+  error: null
 }
-export default function(state = initialState, action) {
-  const { type, payload} = action;
 
-  switch(type) {
+export default (state = initialState, action) => {
+  switch(action.type) {
     case GET_TODOS:
       return {
         ...state,
-        todos: payload,
+        todos: action.payload,
         loading: false
-      }
-      case TODO_ERROR:
+      };
+      case ADD_TODO:
       return {
         ...state,
-        error: payload,
+        todos: [...state.todos, action.payload],
         loading: false
-      }
-      default: 
+      };
+      case DELETE_TODO:
+        return {
+          ...state,
+          todos: state.todos.filter(todo => todo.id !== action.payload),
+          loading: false 
+        };
+        case UPDATE_TODO:
+          return {
+            ...state,
+            todos: state.todos.map(todo => todo.id === action.payload.id ? action.payload : todo)
+          }
+          case SEARCH_TODOS:
+          return {
+            ...state,
+            todos: action.payload
+          }
+        case SET_CURRENT:
+          return {
+            ...state,
+            current: action.payload
+          };
+          case CLEAR_CURRENT:
+            return {
+              ...state,
+              current: null
+            }
+          case SET_LOADING:
+            return {
+             ...state,
+             loading: true
+        };
+      case TODOS_ERROR:
+        console.error(action.payload);
+        return {
+          ...state,
+          error: action.payload
+          
+        }
+    default:
       return state;
   }
-}
+};

@@ -8,12 +8,13 @@ import PreLoader from '../layout/Preloader'
 import AddBtn from '../layout/AddBtn';
 import AddTodoModal from './AddTodoModal';
 import EditTodoModal from './EditTodoModal';
+import AddUserModal from '../users/AddUserModal';
 
 import 'materialize-css/dist/css/materialize.min.css';
 import M from 'materialize-css/dist/js/materialize.min.js';
 import'../../App.css'
 
-const Todos = ({getTodos, todo: {todos, loading}}) => {
+const Todos = ({todo: {todos, loading}, getTodos}) => {
   useEffect(() => {
     getTodos();
     // eslint-disable-next-line
@@ -32,7 +33,7 @@ const Todos = ({getTodos, todo: {todos, loading}}) => {
       <li className="collection-header">
         <h4 className="center">Todos</h4>
       </li>
-      {!loading && Todos.length === 0 ? (
+      {!loading && todos.length === 0 ? (
         <p className="center">No Todos Exist</p>
       ) : (
         todos.map(todo => <TodoItem todo={todo} key={todo._id} />)
@@ -42,6 +43,7 @@ const Todos = ({getTodos, todo: {todos, loading}}) => {
      <AddBtn/>
      <AddTodoModal/>
      <EditTodoModal/>
+     <AddUserModal/>
      </Fragment>
      
    

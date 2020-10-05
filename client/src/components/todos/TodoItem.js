@@ -3,9 +3,17 @@ import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom';
 import Moment from 'react-moment';
 import {connect} from 'react-redux';
+import {deleteTodo, setCurrent} from '../../actions/todo';
+import M from 'materialize-css/dist/js/materialize.min.js'
+import { profile_url } from 'gravatar';
 
 
 const TodoItem =  ({ auth, todo}) => {
+  const onDelete = () => {
+    deleteTodo(todo.id);
+    M.toast({html: 'Todo has been deleted'})
+  }
+  
   return (
     <li className="collection-item">
       <div>
@@ -36,7 +44,9 @@ const TodoItem =  ({ auth, todo}) => {
 
 TodoItem.propTypes = {
 todo: PropTypes.object.isRequired,
-auth: PropTypes.object.isRequired
+auth: PropTypes.object.isRequired,
+deleteTodo: PropTypes.func.isRequired,
+setCurrent: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -44,4 +54,4 @@ const mapStateToProps = state => ({
 })
 
 
-export default connect(mapStateToProps, {}) (TodoItem)
+export default connect(mapStateToProps, {deleteTodo, setCurrent}) (TodoItem)

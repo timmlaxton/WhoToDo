@@ -8,7 +8,7 @@ import Alert from './components/layout/Alert';
 import Todos from './components/todos/Todos';
 import {  Provider  } from 'react-redux';
 import store from './store';
-import {loadUser} from './actions/auth'
+import {  loadUser  } from './actions/auth'
 import setAuthToken from './utils/setAuthToken';
 
 import './App.css';
