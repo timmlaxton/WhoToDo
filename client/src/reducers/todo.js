@@ -1,12 +1,7 @@
 import {
   GET_TODOS,
   TODOS_ERROR,
-  ADD_TODO,
-  DELETE_TODO,
-  CLEAR_CURRENT,
-  UPDATE_TODO,
-  SEARCH_TODOS,
-  SET_CURRENT,
+
   SET_LOADING
   
 } from '../actions/types'
@@ -27,38 +22,7 @@ export default (state = initialState, action) => {
         todos: action.payload,
         loading: false
       };
-      case ADD_TODO:
-      return {
-        ...state,
-        todos: [...state.todos, action.payload],
-        loading: false
-      };
-      case DELETE_TODO:
-        return {
-          ...state,
-          todos: state.todos.filter(todo => todo.id !== action.payload),
-          loading: false 
-        };
-        case UPDATE_TODO:
-          return {
-            ...state,
-            todos: state.todos.map(todo => todo.id === action.payload.id ? action.payload : todo)
-          }
-          case SEARCH_TODOS:
-          return {
-            ...state,
-            todos: action.payload
-          }
-        case SET_CURRENT:
-          return {
-            ...state,
-            current: action.payload
-          };
-          case CLEAR_CURRENT:
-            return {
-              ...state,
-              current: null
-            }
+     
           case SET_LOADING:
             return {
              ...state,

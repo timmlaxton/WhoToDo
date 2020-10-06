@@ -1,13 +1,13 @@
 import React, {Fragment, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import SearchBar from '../../components/layout/SearchBar';
+import AddTodoModal from './AddTodoModal'
 import {connect} from 'react-redux';
 import TodoItem from './TodoItem';
 import {getTodos} from '../../actions/todo';
 import PreLoader from '../layout/Preloader'
 import AddBtn from '../layout/AddBtn';
-import AddTodoModal from './AddTodoModal';
-import EditTodoModal from './EditTodoModal';
+
 import AddUserModal from '../users/AddUserModal';
 
 import 'materialize-css/dist/css/materialize.min.css';
@@ -28,7 +28,7 @@ const Todos = ({todo: {todos, loading}, getTodos}) => {
   return (
      <Fragment> 
      <SearchBar/>
-     
+     <AddTodoModal/>
      <ul className="collection with-header">
       <li className="collection-header">
         <h4 className="center">Todos</h4>
@@ -41,8 +41,7 @@ const Todos = ({todo: {todos, loading}, getTodos}) => {
      
      </ul>
      <AddBtn/>
-     <AddTodoModal/>
-     <EditTodoModal/>
+     
      <AddUserModal/>
      </Fragment>
      

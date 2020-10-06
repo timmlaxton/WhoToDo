@@ -15,20 +15,17 @@ import {
 
 export const getTodos = () => async dispatch => {
   try {
-    setLoading();
-
     const res = await axios.get('/api/todos');
-    const data = await res.json()
     
 
     dispatch({
       type: GET_TODOS,
-      payload: data
+      payload: res.data
     })
   } catch (err) {
     dispatch({
       type: TODOS_ERROR,
-      payload: err.response.data
+      payload: { msg: err.response.statusText, status: err.response.status}
     });
     }
   };
@@ -37,14 +34,14 @@ export const addTodo = (todo) => async dispatch => {
   try {
     setLoading();
 
-    const res = await axios.post('api/todos', {
+    const {data} = await axios.post('api/todos', {
       method: 'POST',
       body: JSON.stringify(todo),
       headers: {
         'Content-Type': 'application/json'
       }
     });
-    const data = await res.json();
+    
 
     dispatch({
       type: ADD_TODO,
@@ -87,7 +84,7 @@ export const updateTodo = (todo) => async dispatch => {
   try {
     setLoading();
 
-    const res = await axios.create(`api/todos/${todo.id}`, {
+    const {data} = await axios.create(`api/todos/${todo.id}`, {
       method: 'PUT', 
       body: JSON.stringify(todo),
       headers: {
@@ -95,7 +92,7 @@ export const updateTodo = (todo) => async dispatch => {
       }
     });
     
-    const data = await res.json()
+    
 
     dispatch({
       type: UPDATE_TODO,
@@ -104,7 +101,7 @@ export const updateTodo = (todo) => async dispatch => {
   } catch (err) {
     dispatch({
       type: TODOS_ERROR,
-      payload: {msg: err.response.statusText, status: err.response.status}
+      payload: err.response.data
     })
   }
 };
@@ -114,8 +111,8 @@ export const searchTodos = (text) => async dispatch => {
   try {
     setLoading();
 
-    const res = await axios(`api/todos?q=${text}`);
-    const data = await res.json();
+    const {data} = await axios(`api/todos?q=${text}`);
+    
 
     dispatch({
       type: SEARCH_TODOS,
@@ -124,7 +121,7 @@ export const searchTodos = (text) => async dispatch => {
   } catch (err) {
     dispatch({
       type: TODOS_ERROR,
-      payload: {msg: err.response.statusText, status: err.response.status}
+      payload: err.response.data
     })
   }
 };
