@@ -1,8 +1,11 @@
 import React, {useState} from 'react'
- import M from 'materialize-css/dist/js/materialize.min.js';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
+import {addTodo} from '../../actions/todo'
+import M from 'materialize-css/dist/js/materialize.min.js';
 
  
-  const AddTodoModal = () => {
+  const AddTodoModal = ({addTodo}) => {
    const [message, setMessage] = useState('');
    const [attention, setAttention] = useState(false)
    const [user, setUser] = useState('');
@@ -11,7 +14,16 @@ import React, {useState} from 'react'
      if(message === '' || user === '') {
        M.toast({html: 'Please enter a todo and user'})
      } else {
-       console.log(message, user, attention);
+       const newTodo = {
+         message,
+         attention,
+         user,
+         date: new Date()
+       }
+
+       addTodo(newTodo)
+
+       M.toast({html: `Todo added by ${user}`})
 
       setMessage('');
       setUser('');
@@ -66,9 +78,13 @@ import React, {useState} from 'react'
    )
  }
 
+  AddTodoModal.propTypes = {
+    addLog: PropTypes.func.isRequired
+  }
+
   const modalStyle = {
    width: '75%',
    height: '75%'
  };
 
-  export default AddTodoModal
+  export default connect(null, {addTodo})(AddTodoModal)

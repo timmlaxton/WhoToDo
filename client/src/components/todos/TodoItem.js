@@ -1,17 +1,16 @@
 import React, {Fragment} from 'react'
 import PropTypes from 'prop-types'
-import {Link} from 'react-router-dom';
-import Moment from 'react-moment';
 import {connect} from 'react-redux';
-import {deleteTodo, setCurrent} from '../../actions/todo';
+import Moment from 'react-moment';
+import {deleteTodo} from '../../actions/todo'
+
 import M from 'materialize-css/dist/js/materialize.min.js'
-import { profile_url } from 'gravatar';
 
-
-const TodoItem =  ({ auth, todo}) => {
+const TodoItem =  ({ auth, todo, deleteTodo}) => {
+  
   const onDelete = () => {
-    deleteTodo(todo.id);
-    M.toast({html: 'Todo has been deleted'})
+    deleteTodo(todo.id)
+    M.toast({html: 'Todo deleted'})
   }
   
   return (
@@ -30,7 +29,7 @@ const TodoItem =  ({ auth, todo}) => {
               <span className="black-text">ID {todo.user}</span> last updated by {' '}
               <span className="black-text">{todo.name}</span> on <Moment format="MMMM Do YYYY, h:mm:ss a">{todo.date}</Moment>
             </span>
-            <a href="#!" className="secondary-content">
+            <a href="#!" onClick={onDelete} className="secondary-content">
               <i className="material-icons grey-text">delete</i>
             </a>
       </div>
@@ -46,12 +45,10 @@ TodoItem.propTypes = {
 todo: PropTypes.object.isRequired,
 auth: PropTypes.object.isRequired,
 deleteTodo: PropTypes.func.isRequired,
-setCurrent: PropTypes.func.isRequired
+
 }
 
-const mapStateToProps = state => ({
-  auth: state.auth
-})
 
 
-export default connect(mapStateToProps, {deleteTodo, setCurrent}) (TodoItem)
+
+export default connect(null, {deleteTodo})(TodoItem)

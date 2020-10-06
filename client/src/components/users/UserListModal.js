@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from 'react'
 import axios from 'axios';
-
+import UserItem from './UserItem'
 
 const UserListModal = () => {
   const [users, setUsers] = useState ([]);
@@ -22,13 +22,14 @@ const getUsers = async () => {
 };
 
 
+
   return (
     <div id="user-list-modal" className="modal">
       <div className="modal-content">
         <h4>User List</h4>
         <ul className="collection">
           {!loading && users.map(user => (
-            <li className='collection.item'>{user}</li>
+            <UserItem user={user} key={user.id}/>
           ))}
         </ul>
       </div>

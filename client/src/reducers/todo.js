@@ -1,8 +1,9 @@
 import {
   GET_TODOS,
   TODOS_ERROR,
-
-  SET_LOADING
+  SET_LOADING,
+  ADD_TODO,
+  DELETE_TODO
   
 } from '../actions/types'
 
@@ -22,8 +23,19 @@ export default (state = initialState, action) => {
         todos: action.payload,
         loading: false
       };
-     
-          case SET_LOADING:
+      case ADD_TODO:
+            return {
+              ...state,
+              todos: [...state.todos, action.payload],
+              loading: false
+            }
+      case DELETE_TODO: 
+            return {
+              ...state,
+              todos: state.todos.filter(todo => todo.id !== action.payload),
+              loading: false
+            }
+      case SET_LOADING:
             return {
              ...state,
              loading: true
@@ -33,7 +45,6 @@ export default (state = initialState, action) => {
         return {
           ...state,
           error: action.payload
-          
         }
     default:
       return state;

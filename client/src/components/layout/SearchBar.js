@@ -1,7 +1,7 @@
 import React, {useRef} from 'react'
-import { connect} from 'react-redux'
+
 import PropTypes from 'prop-types';
-import {searchTodos } from '../../actions/todo'
+
  
  const SearchBar = ({searchTodos}) => {
   const text = useRef('');
@@ -30,4 +30,4 @@ SearchBar.propTypes = {
   searchTodos: PropTypes.func.isRequired,
 }
 
-export default connect(null, {searchTodos})(SearchBar);
+export default SearchBar;

@@ -11,7 +11,6 @@ import {getTodos} from '../../actions/todo';
 import PreLoader from '../layout/Preloader'
 import AddBtn from '../layout/AddBtn';
 
-
 import 'materialize-css/dist/css/materialize.min.css';
 import M from 'materialize-css/dist/js/materialize.min.js';
 import'../../App.css'
