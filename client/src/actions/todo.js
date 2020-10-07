@@ -3,11 +3,14 @@ import {
   TODOS_ERROR,
   SET_LOADING,
   ADD_TODO,
-  DELETE_TODO
+  DELETE_TODO, 
+  SET_CURRENT,
+  CLEAR_CURRENT,
+  UPDATE_TODO
 } from './types';
 
 import axios from 'axios';
-import {setAlert} from './alert';
+
 
 export const getTodos = () => async dispatch => {
   try {
@@ -70,6 +73,51 @@ export const getTodos = () => async dispatch => {
         });
         }
       };
+
+       // Update todo
+    export const updateTodo = todo => async dispatch => {
+      const config = {
+        body: JSON.stringify(todo),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+      try {
+        setLoading();
+        
+        const res = await axios.put(`api/todos/${todo.id}`, todo, config);
+      
+       
+       
+        dispatch({
+          type: UPDATE_TODO,
+          payload: res.data
+        })
+      } catch (err) {
+        dispatch({
+          type: TODOS_ERROR,
+          payload: err.response.data
+        });
+        }
+      };
+
+
+      // Set Current todo
+      export const setCurrent = todo => {
+        return {
+          type: SET_CURRENT,
+          payload: todo
+        }
+      }
+
+      // Clear Current todo
+      export const clearCurrent = () => {
+        return {
+          type: CLEAR_CURRENT
+          
+        }
+      }
+
 
 
 

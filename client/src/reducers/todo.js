@@ -3,7 +3,10 @@ import {
   TODOS_ERROR,
   SET_LOADING,
   ADD_TODO,
-  DELETE_TODO
+  DELETE_TODO,
+  SET_CURRENT,
+  CLEAR_CURRENT,
+  UPDATE_TODO
   
 } from '../actions/types'
 
@@ -34,7 +37,22 @@ export default (state = initialState, action) => {
               ...state,
               todos: state.todos.filter(todo => todo.id !== action.payload),
               loading: false
-            }
+            };
+      case UPDATE_TODO:
+              return {
+                ...state,
+                todos: state.todos.map(todo => todo.id === action.payload.id ? action.payload : todo)
+              }
+      case SET_CURRENT:
+        return {
+          ...state,
+          current: action.payload
+        };
+        case CLEAR_CURRENT:
+        return {
+          ...state,
+          current: null
+        }
       case SET_LOADING:
             return {
              ...state,

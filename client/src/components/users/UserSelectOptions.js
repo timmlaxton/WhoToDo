@@ -8,11 +8,11 @@ const UserSelectOptions = ({getUsers, user: {users, loading}}) => {
   useEffect(() => {
     getUsers()
     // eslint-disable-next-line
-  }, [])
+  }, [getUsers])
 
   return (
-    !loading && users !== null && users.map(u => <option key={users.id} value={`${u.firstName} ${u.lastName}`}>
-      {users.firstName} {users.lastName}
+    !loading && users !== null && users.map((u) => <option key={u._id} value={`${u.firstName} ${u.lastName}`}>
+      {u.firstName} {u.lastName}
     </option>)
   )
 }

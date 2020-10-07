@@ -2,11 +2,11 @@ import React, {Fragment} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux';
 import Moment from 'react-moment';
-import {deleteTodo} from '../../actions/todo'
+import {deleteTodo, setCurrent} from '../../actions/todo'
 
 import M from 'materialize-css/dist/js/materialize.min.js';
 
-const TodoItem =  ({  todo, deleteTodo}) => {
+const TodoItem =  ({  todo, deleteTodo, setCurrent}) => {
   
   const onDelete = () => {
     deleteTodo(todo._id);
@@ -21,6 +21,7 @@ const TodoItem =  ({  todo, deleteTodo}) => {
         className={`modal-trigger ${
           todo.attention ? 'red-text' : 'blue-text'
           }`}
+          onClick={() => setCurrent(todo)}
           >
             {todo.message}
             </a>
@@ -44,10 +45,11 @@ const TodoItem =  ({  todo, deleteTodo}) => {
 TodoItem.propTypes = {
 todo: PropTypes.object.isRequired,
 deleteTodo: PropTypes.func.isRequired,
+setCurrent: PropTypes.func.isRequired,
 
 }
 
 
 
 
-export default connect(null, {deleteTodo})(TodoItem)
+export default connect(null, {deleteTodo, setCurrent})(TodoItem)

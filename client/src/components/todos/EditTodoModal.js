@@ -1,20 +1,38 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import UserSelectOptions from '../users/UserSelectOptions'
-
+import { connect} from 'react-redux'
+import PropTypes from 'prop-types'
  import M from 'materialize-css/dist/js/materialize.min.js';
-
+import {updateTodo} from '../../actions/todo'
 
  
-  const EditTodoModal = () => {
+  const EditTodoModal = ({current, updateTodo}) => {
    const [message, setMessage] = useState('');
    const [attention, setAttention] = useState(false)
    const [user, setUser] = useState('');
+
+   useEffect(() => {
+     if(current) {
+       setMessage(current.message);
+       setAttention(current.attention);
+       setUser(current.user);
+     }
+   },[current])
 
     const onSubmit = () => {
      if(message === '' || user === '') {
        M.toast({html: 'Please enter a todo and user'})
      } else {
-       console.log(message, user, attention);
+       const updTodo = {
+         id: current.id,
+         message,
+         attention,
+         user,
+         date: new Date()
+       }
+
+       updateTodo(updTodo);
+       M.toast({html: `Todo updated by ${user}`})
 
       setMessage('');
       setUser('');
@@ -28,9 +46,7 @@ import UserSelectOptions from '../users/UserSelectOptions'
          <div className="row">
            <div className="input-field">
              <input type="text" name='message' value={message} onChange={e => setMessage(e.target.value)}/>
-             <label htmlFor="message" className="active">
-               Todo Message
-             </label>
+             
            </div>
          </div>
 
@@ -72,5 +88,14 @@ import UserSelectOptions from '../users/UserSelectOptions'
    height: '75%'
  };
 
+ EditTodoModal.propTypes = {
+   current: PropTypes.object,
+   updateTodo: PropTypes.func.isRequired,
+ }
+
+ const mapStateToProps = state => ({
+   current: state.todo.current
+ })
+
  
-  export default EditTodoModal
+  export default connect(mapStateToProps, {updateTodo})(EditTodoModal)
