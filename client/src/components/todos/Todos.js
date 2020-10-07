@@ -45,7 +45,6 @@ const Todos = ({todo: {todos, loading}, getTodos}) => {
      
      </ul>
      <AddBtn/>
-     
      <AddUserModal/>
      </Fragment>
      

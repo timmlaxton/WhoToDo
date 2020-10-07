@@ -1,5 +1,8 @@
 import React, {useState} from 'react'
+import UserSelectOptions from '../users/UserSelectOptions'
+
  import M from 'materialize-css/dist/js/materialize.min.js';
+
 
  
   const EditTodoModal = () => {
@@ -35,9 +38,7 @@ import React, {useState} from 'react'
            <div className="input-field">
              <select name="user" value={user} className="browser-default" onChange={e => setUser(e.target.value )}>
                <option value="" disabled>Select User</option>
-               <option value="John Doe">John Doe</option>
-               <option value="Henry Walloper">Henry Walloper</option>
-               <option value="Martha">Martha </option>
+               <UserSelectOptions/>
              </select>
            </div>
          </div>
@@ -71,4 +72,5 @@ import React, {useState} from 'react'
    height: '75%'
  };
 
+ 
   export default EditTodoModal

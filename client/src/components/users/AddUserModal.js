@@ -59,7 +59,7 @@ const AddUserModal = () => {
 }
 
   AddUserModal.propTypes = {
-    addUser: PropTypes.func.isRequired
+  addUser: PropTypes.func.isRequired
   }
 
 

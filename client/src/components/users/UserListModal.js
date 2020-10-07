@@ -1,10 +1,11 @@
-import React, { useState, useEffect} from 'react'
-import axios from 'axios';
+import React, { useEffect} from 'react'
 import UserItem from './UserItem'
+import {connect} from 'react-redux'
+import PropTypes from 'prop-types';
+import {getUsers} from '../../actions/users';
 
-const UserListModal = () => {
-  const [users, setUsers] = useState ([]);
-  const [loading, setLoading] = useState(false)
+const UserListModal = ({getUsers, user: {users, loading}}) => {
+  
 
 
 useEffect(() => {
@@ -12,14 +13,7 @@ useEffect(() => {
   //eslint-diasble-next-line //
 }, []);
 
-const getUsers = async () => {
-  setLoading(true);
-  const res = await axios.get('/api/users');
-  const data = await res.json();
 
-  setUsers(data);
-  setLoading(false)
-};
 
 
 
@@ -28,8 +22,9 @@ const getUsers = async () => {
       <div className="modal-content">
         <h4>User List</h4>
         <ul className="collection">
-          {!loading && users.map(user => (
-            <UserItem user={user} key={user.id}/>
+          {!loading && 
+          users !== null && users.map(user => (
+            <UserItem user={user} key={user._id}/>
           ))}
         </ul>
       </div>
@@ -37,4 +32,12 @@ const getUsers = async () => {
     )
   };
 
-   export default UserListModal;
+  UserListModal.propTypes = {
+    user: PropTypes.object.isRequired,
+    getUsers: PropTypes.func.isRequired
+  }
+
+  const mapStateToProps = state => ({
+    user: state.user
+  })
+   export default connect(mapStateToProps, {getUsers})(UserListModal);

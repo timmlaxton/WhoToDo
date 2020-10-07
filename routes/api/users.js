@@ -9,7 +9,6 @@ const {check, validationResult, } = require('express-validator');
 const User = require('../../models/User');
 
 
-
 // @route POST api/users
 // @desc  Register user
 // @access    Public
@@ -75,6 +74,16 @@ async (req, res) => {
 
   
 })
+
+router.get('/',  async (req, res) => {
+  try {
+    const users = await User.find();
+    res.json(users);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
 
 
 module.exports = router;

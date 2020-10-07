@@ -12,18 +12,17 @@ import {
 export const getUsers = () => async dispatch => {
   try {
     setLoading();
-
     const res = await axios.get('/api/users');
-    const data = await res.json();
+    
 
     dispatch({
       type: GET_USERS,
-      payload: data
+      payload: res.data
     });
   } catch (err) {
     dispatch({
       type: USERS_ERROR,
-      payload: {msg: err.response.statusText, status: err.response.status}
+      payload: err.response.data
     });
   }
 };

@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {addTodo} from '../../actions/todo'
 import M from 'materialize-css/dist/js/materialize.min.js';
+import UserSelectOptions from '../users/UserSelectOptions'
 
  
   const AddTodoModal = ({addTodo}) => {
@@ -46,10 +47,10 @@ import M from 'materialize-css/dist/js/materialize.min.js';
           <div className="row">
            <div className="input-field">
              <select name="user" value={user} className="browser-default" onChange={e => setUser(e.target.value )}>
-               <option value="" disabled>Select User</option>
-               <option value="John Doe">John Doe</option>
-               <option value="Henry Walloper">Henry Walloper</option>
-               <option value="Martha">Martha </option>
+               <option value="" disabled>
+                 Select User
+                 </option>
+               <UserSelectOptions/>
              </select>
            </div>
          </div>
@@ -79,7 +80,7 @@ import M from 'materialize-css/dist/js/materialize.min.js';
  }
 
   AddTodoModal.propTypes = {
-    addLog: PropTypes.func.isRequired
+    addTodo: PropTypes.func.isRequired
   }
 
   const modalStyle = {

@@ -83,7 +83,7 @@ router.delete('/:id', auth, async (req, res) => {
     const todo = await Todo.findById(req.params.id);
 
     if (!todo) {
-      return res.status(404).json({ msg: 'Post not found' });
+      return res.status(404).json({ msg: 'Todo not found' });
     }
 
     // Check user

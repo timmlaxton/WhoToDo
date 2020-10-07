@@ -51,12 +51,14 @@ export const getTodos = () => async dispatch => {
       }
     };
 
+    // Delete todo
     export const deleteTodo = id => async dispatch => {
       try {
         setLoading();
-        await axios.delete(`/api/${id}`);
         
-    
+        await axios.delete(`api/todos/${id}`);
+        
+       
         dispatch({
           type: DELETE_TODO,
           payload: id

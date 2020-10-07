@@ -4,15 +4,15 @@ import {connect} from 'react-redux';
 import Moment from 'react-moment';
 import {deleteTodo} from '../../actions/todo'
 
-import M from 'materialize-css/dist/js/materialize.min.js'
+import M from 'materialize-css/dist/js/materialize.min.js';
 
-const TodoItem =  ({ auth, todo, deleteTodo}) => {
+const TodoItem =  ({  todo, deleteTodo}) => {
   
   const onDelete = () => {
-    deleteTodo(todo.id)
+    deleteTodo(todo._id);
     M.toast({html: 'Todo deleted'})
   }
-  
+
   return (
     <li className="collection-item">
       <div>
@@ -43,7 +43,6 @@ const TodoItem =  ({ auth, todo, deleteTodo}) => {
 
 TodoItem.propTypes = {
 todo: PropTypes.object.isRequired,
-auth: PropTypes.object.isRequired,
 deleteTodo: PropTypes.func.isRequired,
 
 }
